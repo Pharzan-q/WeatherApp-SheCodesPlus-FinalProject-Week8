@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <title>Weather App</title>
+  </head>
+  <body>
+    <video id="background-video" autoplay loop muted>
+      <source src=media/mist.mp4 type="video/mp4">
+    </video>
+    <div class="container">
+      <div class="search-box">
+        <form class="input-group flex-nowrap search-form" id="try-cities">
+          <input
+            type="search"
+            class="form-control city-input"
+            placeholder="Try another city"
+            id="city-input"
+          />
+
+          <input
+            type="submit"
+            value="Search"
+            class="input-group-text submit-button"
+          />
+        </form>
+        <button class="location-btn" id="button">Current Location</button>
+      </div>
+      <div class="main-container">
+        <section class="time-location mini-container">
+          <h1 class="city-name" id="city-name">Tehran,Iran</h1>
+          <ul>
+            <li>
+              <span id="day"></span> <span> </span>
+              <span id="date"></span>
+            </li>
+            <li id="time"></li>
+          </ul>
+        </section>
+        <section class="mini-container description-container">
+          <div class="weather-description">
+            <div class="temperature">
+              <span class="temp-numb" id="temp-numb"></span>
+              <a href="#" id="celsius-unit"> °C</a>|<a
+                href="#"
+                id="fahrenheit-unit"
+                style="
+                  color: #008ae0;
+                  font-size: 14px;
+                  font-weight: 600;
+                  cursor: pointer;
+                "
+                >°F</a
+              >
+            </div>
+            <ul class="weather-details">
+              <li>Humidity : <span id="humidity"></span> %</li>
+              <li>Wind : <span id="wind"></span> Km/h</li>
+            </ul>
+          </div>
+          <div class="weather-condition">
+            <img src="" alt="" class="weather-icon" id="weather-icon" />
+            <div class="condition-description" id="condition-description"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="footer">
+      Coded by Farzaneh Ghorbani /<a
+        href=" https://github.com/Pharzan-q/WeatherApp-SheCodesFinalProject"
+        style="
+          font-size: 20px;
+          font-weight: 700;
+          text-decoration: underline;
+          color: rgba(24, 23, 23, 0.685);
+          cursor: pointer;
+        "
+        target="_blank"
+        >GitHub</a
+      >
+    </div>
+    <script src="src/script.js"></script>
+  </body>
+</html>
