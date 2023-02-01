@@ -8,7 +8,7 @@ function formatDate(time) {
     "Sunday",
     "Monday",
     "Tuesday",
-    "Wednsday",
+    "Wednesday",
     "Thursday",
     "Friday",
     "saturday",
@@ -26,8 +26,6 @@ function formatDate(time) {
 }
 
 function showWeather(response) {
-  console.log(response);
-  celsiusTemp = response.data.temperature.current;
   document.querySelector("#city-name").innerHTML = response.data.city;
   document.querySelector("#temp-numb").innerHTML = Math.round(
     response.data.temperature.current
@@ -47,16 +45,65 @@ function showWeather(response) {
   document
     .querySelector("#weather-icon")
     .setAttribute("alt", response.data.condition.icon);
-  document.querySelector("#celsius-unit").setAttribute("style", "");
-  document.querySelector("#fahrenheit-unit").style.cssText =
-    "color:#008ae0; font-size:14px; font-weight :600;  cursor:pointer";
+
   formatDate(response.data.time * 1000);
+}
+function formatForecastDay(time) {
+  let forecastDate = new Date(time);
+  let forecastDay = document.querySelector("#forcast-day");
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "saturday",
+  ];
+
+  return days[forecastDate.getDay()];
+}
+
+function handelForecast(response) {
+  let forecastBoxes = document.querySelector("#forecast-boxes");
+  let forecastDay = "";
+  let forecastDaily = response.data.daily;
+
+  forecastDaily.forEach(function (element, index) {
+    if (index < 6) {
+      forecastDay =
+        forecastDay +
+        ` <div class="forcast-box">
+          <div class="forcast-day" id="forcast-day">${formatForecastDay(
+            element.time * 1000
+          )}</div>
+          <div class="forcast-icon">
+            <img class="forcast-img" id="forcast-icon" src="${
+              element.condition.icon_url
+            }" alt="${element.condition.icon}" />
+          </div>
+          <div class="forcast-temp">
+            <span class="forcast-max-temp" id="forcast-max-temp" style="font-weight:800;">${Math.round(
+              element.temperature.maximum
+            )}°|</span
+            ><span class="forcast-min-temp" id="forcast-min-temp">${Math.round(
+              element.temperature.minimum
+            )}°</span>
+          </div>
+          </div>
+        `;
+    }
+  });
+  forecastBoxes.innerHTML = forecastDay;
 }
 
 function getApi(cityName) {
   let apiKey = "1bc06e4a65c718f0ab0b2fa3co98tde4";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${cityName}&key=${apiKey}&units=metric`;
+  let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${cityName}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showWeather);
+  axios.get(forecastApiUrl).then(handelForecast);
 }
 
 function handelSubmit(event) {
@@ -74,29 +121,13 @@ function handelCurrentLocation(position) {
   let lat = position.coordinates.latitude;
   let apiKey = "1bc06e4a65c718f0ab0b2fa3co98tde4";
   let apiUrl = ` https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=metric`;
+  let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${lon}&lat=${lat}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showWeather);
+  axios.get(forecastApiUrl).then(handelForecast);
 }
 
 function currentLocation() {
   navigator.geolocation.getCurrentPosition(handelCurrentLocation);
-}
-function changeUnitToC(event) {
-  event.preventDefault();
-  document.querySelector("#celsius-unit").setAttribute("style", "");
-  let temp = document.querySelector("#temp-numb");
-  temp.innerHTML = Math.round(celsiusTemp);
-  document.querySelector("#fahrenheit-unit").style.cssText =
-    "color:#008ae0; font-size:14px; font-weight :600;  cursor:pointer";
-}
-
-function changeUnitToF(event) {
-  event.preventDefault();
-  document.querySelector("#fahrenheit-unit").setAttribute("style", "");
-
-  let temp = document.querySelector("#temp-numb");
-  temp.innerHTML = Math.round(celsiusTemp * (9 / 5) + 32);
-  document.querySelector("#celsius-unit").style.cssText =
-    "color:#008ae0; font-size:14px; font-weight :600; cursor:pointer ";
 }
 
 let celsiusTemp = null;
@@ -106,9 +137,4 @@ citySearch.addEventListener("submit", handelSubmit);
 let button = document.querySelector("#button");
 button.addEventListener("click", currentLocation);
 
-let celsius = document.querySelector("#celsius-unit");
-let fahrenheit = document.querySelector("#fahrenheit-unit");
-
-celsius.addEventListener("click", changeUnitToC);
-fahrenheit.addEventListener("click", changeUnitToF);
 getApi("Tehran");
