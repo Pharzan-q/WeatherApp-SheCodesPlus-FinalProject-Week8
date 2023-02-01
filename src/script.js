@@ -84,10 +84,10 @@ function handelForecast(response) {
             }" alt="${element.condition.icon}" />
           </div>
           <div class="forcast-temp">
-            <span class="forcast-max-temp" id="forcast-max-temp" style="font-weight:800;">${Math.round(
+            <span class="forcast-max-temp" id="forcast-max-temp" style="font-weight:900; color:#211f1f; opacity:0.9;">${Math.round(
               element.temperature.maximum
-            )}°|</span
-            ><span class="forcast-min-temp" id="forcast-min-temp">${Math.round(
+            )}°</span
+            >|<span class="forcast-min-temp" id="forcast-min-temp">${Math.round(
               element.temperature.minimum
             )}°</span>
           </div>
