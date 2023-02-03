@@ -33,7 +33,7 @@ a {
   max-width: 800px;
   display: flex;
   flex-direction: column;
-  background-color: rgba(233, 219, 200, 0.425);
+  background-color: rgba(226, 188, 135, 0.253);
   justify-content: center;
   border: 1px solid rgba(129, 127, 127, 0.24);
   border-radius: 15px;
@@ -163,6 +163,11 @@ a {
 .forcast-temp {
   font-size: smaller;
 }
+.forcast-max-temp {
+  font-weight: 900;
+  color: #211f1f;
+  opacity: 0.9;
+}
 .forcast-icon {
   margin: 0 auto;
 }
@@ -209,5 +214,20 @@ a {
   }
   .submit-button {
     max-width: fit-content;
+  }
+  .forcast-boxes {
+    margin: 5px;
+  }
+  .forcast-box {
+    margin: 2px;
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .forcast-day {
+    font-size: 13px;
+  }
+  .forcast-img {
+    width: 45px;
   }
 }
