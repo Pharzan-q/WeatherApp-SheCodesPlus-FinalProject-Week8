@@ -11,7 +11,7 @@ function formatDate(time) {
     "Wednesday",
     "Thursday",
     "Friday",
-    "saturday",
+    "Saturday",
   ];
 
   today.innerHTML = days[todayDate.getDay()];

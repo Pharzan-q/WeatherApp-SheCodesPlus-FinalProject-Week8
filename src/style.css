@@ -106,6 +106,9 @@ a {
   padding: 10px 15px;
 }
 
+.city-name {
+  text-transform: capitalize;
+}
 .description-container {
   flex: 1;
   display: flex;
