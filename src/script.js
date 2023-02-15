@@ -59,7 +59,7 @@ function formatForecastDay(time) {
     "Wednesday",
     "Thursday",
     "Friday",
-    "saturday",
+    "Saturday",
   ];
 
   return days[forecastDate.getDay()];
